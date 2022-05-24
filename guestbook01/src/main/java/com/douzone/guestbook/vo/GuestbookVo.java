@@ -1,44 +1,44 @@
 package com.douzone.guestbook.vo;
 
-import java.util.Date;
-
 public class GuestbookVo {
-
 	private Long no;
-	private String title;
-	private String content;
-	private Date current;
-	private Long memberNo;
-	
+	private String name;
+	private String password;
+	private String regDate;
+	private String message;
 	public Long getNo() {
 		return no;
-	}
-	public Long getMemberNo() {
-		return memberNo;
-	}
-	public void setMemberNo(Long memberNo) {
-		this.memberNo = memberNo;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public String getContent() {
-		return content;
-	}
-	public Date getCurrent() {
-		return current;
 	}
 	public void setNo(Long no) {
 		this.no = no;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public String getName() {
+		return name;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public void setCurrent(Date current) {
-		this.current = current;
+	public String getPassword() {
+		return password;
 	}
-	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	@Override
+	public String toString() {
+		return "GuestbookVo [no=" + no + ", name=" + name + ", password=" + password + ", regDate=" + regDate
+				+ ", message=" + message + "]";
+	}
 }
