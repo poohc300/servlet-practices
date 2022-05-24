@@ -1,6 +1,7 @@
 package com.douzone.emaillist.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -19,30 +20,33 @@ public class EmaillistServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		String action = request.getParameter("a");
-		
-		if("form".equals(action)) {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/form.jsp");
-			rd.forward(request, response);
-		} else if("add".equals(action)) {
-			String firstName = request.getParameter("firstName");
-			String lastName = request.getParameter("lastName");
-			String email = request.getParameter("email");
-			
-			EmaillistVo vo = new EmaillistVo();
-			vo.setFirstName(firstName);
-			vo.setLastName(lastName);
-			vo.setEmail(email);
-			
-			new EmaillistDao().insert(vo);
-			
-			response.sendRedirect(request.getContextPath() + "/el");			
-		} else {
-			List<EmaillistVo> list = new EmaillistDao().findAll();
-			
-			request.setAttribute("list", list);
-
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/index.jsp");
-			rd.forward(request, response);
+		try {
+			if("form".equals(action)) {
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/form.jsp");
+				rd.forward(request, response);
+			} else if("add".equals(action)) {
+				String firstName = request.getParameter("firstName");
+				String lastName = request.getParameter("lastName");
+				String email = request.getParameter("email");
+				
+				EmaillistVo vo = new EmaillistVo();
+				vo.setFirstName(firstName);
+				vo.setLastName(lastName);
+				vo.setEmail(email);
+				
+				new EmaillistDao().insert(vo);
+				
+				response.sendRedirect(request.getContextPath() + "/el");			
+			} else {
+				List<EmaillistVo> list = new EmaillistDao().findAll();
+				
+				request.setAttribute("list", list);
+	
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/index.jsp");
+				rd.forward(request, response);
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
