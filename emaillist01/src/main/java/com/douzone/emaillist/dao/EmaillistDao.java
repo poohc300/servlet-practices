@@ -1,4 +1,4 @@
-package com.douzone.emailist.dao;
+package com.douzone.emaillist.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.douzone.emailist.util.DBConnection;
-import com.douzone.emailist.vo.EmaillistVo;
+import com.douzone.emaillist.util.DBConnection;
+import com.douzone.emaillist.vo.EmaillistVo;
 
 public class EmaillistDao {
 	public boolean insert(EmaillistVo vo) {
@@ -59,22 +59,26 @@ public class EmaillistDao {
 		connection = dc.getConnection();
 	
 
+		
 		String sql =
-			"   select a.no, a.no, a.title, a.price, b.name" +
-			"     from book a, category b" +
-			"    where a.category_no = b.no" +
-			" order by a.no";
+			"   select no, first_name, last_name, email" +
+			"     from emaillist" + 
+			" order by no desc";
 		
 		pstmt = connection.prepareStatement(sql);			
 		rs = pstmt.executeQuery();
 			
 		while(rs.next()) {
-			EmaillistVo vo = new EmaillistVo();
+			Long no = rs.getLong(1);
+			String firstName = rs.getString(2);
+			String lastName = rs.getString(3);
+			String email = rs.getString(4);
 			
-			vo.setNo(rs.getLong(1)); 
-			vo.setName(rs.getString(2)); 
-			vo.setPrice(rs.getLong(3)); 
-			vo.setCategoryName(rs.getString(4)); 
+			EmaillistVo vo = new EmaillistVo();
+			vo.setNo(no);
+			vo.setFirstName(firstName);
+			vo.setLastName(lastName);
+			vo.setEmail(email); 
 			
 			result.add(vo);
 			}

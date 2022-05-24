@@ -1,4 +1,4 @@
-package com.douzone.emailist.util;
+package com.douzone.emaillist.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
